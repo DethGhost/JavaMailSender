@@ -1,9 +1,6 @@
 package org.ua.deth.javamailsender.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Eugene Khudoliiv.
@@ -13,7 +10,8 @@ import javax.persistence.Id;
 public class MailSetting {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "mail_setting_id_seq", sequenceName = "mail_setting_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mail_setting_id_seq")
     private long id;
 
     @Column

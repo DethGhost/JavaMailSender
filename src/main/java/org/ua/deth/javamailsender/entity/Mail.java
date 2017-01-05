@@ -28,14 +28,6 @@ public class Mail {
     public Mail() {
     }
 
-    public long getMailId() {
-        return mailId;
-    }
-
-    public void setMailId(long mailId) {
-        this.mailId = mailId;
-    }
-
     public void setSubject(String subject) {
         this.subject = subject;
     }
