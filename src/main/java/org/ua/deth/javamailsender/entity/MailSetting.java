@@ -26,7 +26,7 @@ public class MailSetting {
     @Column
     private int port;
 
-    @Column
+    @Column(name = "from_email")
     private String from;
 
     @Column(name = "from_name")

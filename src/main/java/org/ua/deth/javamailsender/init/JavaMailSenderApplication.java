@@ -4,20 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.ua.deth.javamailsender.entity.MailSetting;
 import org.ua.deth.javamailsender.repository.MailSettingRepository;
 
 @SpringBootApplication
 @ComponentScan("org.ua.deth.javamailsender")
-@EnableJpaRepositories
 public class JavaMailSenderApplication {
 
     @Autowired
     private static MailSettingRepository mailSettingRepository;
 
     public static void main(String[] args) {
-        SpringApplication.run(JavaMailSenderApplication.class, args);
+        SpringApplication.run(JavaMailSenderApplication.class, "--debug");
         save();
     }
 
@@ -32,7 +30,7 @@ public class JavaMailSenderApplication {
                 "UTF-8",
                 "true",
                 "false");
-        mailSettingRepository.saveAndFlush(setting);
+        mailSettingRepository.save(setting);
     }
 
 }
