@@ -2,51 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Setting</title>
+    <script src="/js/password.js" type="text/javascript"></script>
+    <title>Setting page</title>
 </head>
-<body>
+<body onload="go()">
 <!--/*@thymesVar id="mailSetting" type="org.ua.deth.javamailsender.entity.MailSetting"*/-->
 <form th:action="@{/saveSettings}" action="#" th:object="${mailSetting}" method="post">
     <table>
         <tr>
             <td>Host:</td>
-            <td><input type="text" th:field="*{host}" /></td>
-            <td th:if="${#fields.hasErrors('host')}" th:errors="*{host}">Host error message</td>
+            <td><input type="text" th:field="*{host}" required="required"/></td>
         </tr>
         <tr>
             <td>User name:</td>
-            <td><input type="text" th:field="*{userName}" /></td>
-            <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">User name error message</td>
+            <td><input type="text" th:field="*{userName}" required="required"/></td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="password" th:field="*{password}" /></td>
-            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</td>
+            <td><input id="password" type="password" th:field="*{password}" required="required"/></td>
+            <td><button id="show-button" onclick="show()" type="button">Show password</button> </td>
         </tr>
         <tr>
             <td>Port:</td>
-            <td><input type="number" th:field="*{port}" /></td>
-            <td th:if="${#fields.hasErrors('port')}" th:errors="*{port}">Port error message</td>
+            <td><input type="number" th:field="*{port}" required="required" /></td>
         </tr>
         <tr>
             <td>SmtpAuth:</td>
             <td><input type="checkbox" th:field="*{smtpAuth}" /></td>
-            <td th:if="${#fields.hasErrors('smtpAuth')}" th:errors="*{smtpAuth}">SmtpAuth error message</td>
         </tr>
         <tr>
             <td>StartTls:</td>
             <td><input type="checkbox" th:field="*{starttls}" /></td>
-            <td th:if="${#fields.hasErrors('starttls')}" th:errors="*{starttls}">StartTls error message</td>
         </tr>
         <tr>
             <td>From email:</td>
-            <td><input type="email" th:field="*{from}" /></td>
-            <td th:if="${#fields.hasErrors('from')}" th:errors="*{from}">From email error message</td>
+            <td><input type="email" th:field="*{from}" required="required" /></td>
         </tr>
         <tr>
             <td>From name:</td>
-            <td><input type="text" th:field="*{fromName}" /></td>
-            <td th:if="${#fields.hasErrors('fromName')}" th:errors="*{fromName}">From name error message</td>
+            <td><input type="text" th:field="*{fromName}" required="required" /></td>
         </tr>
         <tr>
             <td><button type="submit">Submit post</button></td>
