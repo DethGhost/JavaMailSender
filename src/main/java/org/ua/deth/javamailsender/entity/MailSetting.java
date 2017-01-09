@@ -33,23 +33,23 @@ public class MailSetting {
     private String fromName;
 
     @Column(name = "smtp_auth")
-    private String smtpAuth;
+    private boolean isSmtpAuth;
 
-    @Column(name = "starttls")
-    private String starttls;
+    @Column(name = "isStarttls")
+    private boolean isStarttls;
 
     public MailSetting() {
     }
 
-    public MailSetting(String host, String userName, String password, int port, String from, String fromName, String encoding, String smtpAuth, String starttls) {
+    public MailSetting(String host, String userName, String password, int port, String from, String fromName, boolean smtpAuth, boolean starttls) {
         this.host = host;
         this.userName = userName;
         this.password = password;
         this.port = port;
         this.from = from;
         this.fromName = fromName;
-        this.smtpAuth = smtpAuth;
-        this.starttls = starttls;
+        this.isSmtpAuth = smtpAuth;
+        this.isStarttls = starttls;
     }
 
     public String getHost() {
@@ -100,19 +100,19 @@ public class MailSetting {
         this.fromName = fromName;
     }
 
-    public String getSmtpAuth() {
-        return smtpAuth;
+    public boolean getSmtpAuth() {
+        return isSmtpAuth;
     }
 
-    public void setSmtpAuth(String smtpAuth) {
-        this.smtpAuth = smtpAuth;
+    public void setSmtpAuth(boolean smtpAuth) {
+        this.isSmtpAuth = smtpAuth;
     }
 
-    public String getStarttls() {
-        return starttls;
+    public boolean getStarttls() {
+        return isStarttls;
     }
 
-    public void setStarttls(String starttls) {
-        this.starttls = starttls;
+    public void setStarttls(boolean starttls) {
+        this.isStarttls = starttls;
     }
 }
