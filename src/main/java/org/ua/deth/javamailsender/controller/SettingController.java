@@ -24,21 +24,22 @@ public class SettingController {
     private MailSettingService service;
 
     @RequestMapping(value = "/settings", method = RequestMethod.GET)
-    public ModelAndView getSetting(HttpSession session){
+    public ModelAndView getSetting(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-       modelAndView.addObject("mailSetting", new MailSetting());
+        modelAndView.addObject("mailSetting", service.getRepository().findOne(1L));
         modelAndView.setViewName("setting");
         return modelAndView;
     }
 
     @RequestMapping(value = "/saveSettings", method = RequestMethod.POST)
-    public ModelAndView saveSetting(@ModelAttribute("mailSetting")@Validated MailSetting setting, BindingResult result){
+    public ModelAndView saveSetting(@ModelAttribute("mailSetting") @Validated MailSetting setting, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
-        if(result.hasErrors()){
+
+        if (result.hasErrors()) {
             modelAndView.setViewName("setting");
-        }else if(service.saveSetting(setting)){
+        } else if (service.saveSetting(setting)) {
             modelAndView.setViewName("index");
-        }else {
+        } else {
             modelAndView.setViewName("setting");
             modelAndView.addObject("error", "some error going out");
         }

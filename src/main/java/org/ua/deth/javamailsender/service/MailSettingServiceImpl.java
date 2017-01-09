@@ -2,7 +2,6 @@ package org.ua.deth.javamailsender.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 import org.ua.deth.javamailsender.entity.MailSetting;
 import org.ua.deth.javamailsender.repository.MailSettingRepository;
 
@@ -17,21 +16,18 @@ public class MailSettingServiceImpl implements MailSettingService {
     MailSettingRepository repository;
 
     @Override
-    public ModelAndView getSetting() {
-        ModelAndView modelAndView = new ModelAndView();
-        MailSetting setting = new MailSetting();
-        modelAndView.addObject("setting", setting);
-        modelAndView.setViewName("/setting");
-        return modelAndView;
-    }
-
-    @Override
     public boolean saveSetting(MailSetting setting) {
         try {
-            repository.saveAndFlush(setting);
+            repository.save(setting);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
+
+    public MailSettingRepository getRepository() {
+        return repository;
+    }
+
+
 }

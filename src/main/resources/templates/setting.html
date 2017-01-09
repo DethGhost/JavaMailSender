@@ -11,42 +11,42 @@
         <tr>
             <td>Host:</td>
             <td><input type="text" th:field="*{host}" /></td>
-            <!--<td th:if="${#fields.hasErrors('host')}" th:errors="*{host}">Host error message</td>-->
+            <td th:if="${#fields.hasErrors('host')}" th:errors="*{host}">Host error message</td>
         </tr>
         <tr>
             <td>User name:</td>
             <td><input type="text" th:field="*{userName}" /></td>
-            <!--<td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">User name error message</td>-->
+            <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">User name error message</td>
         </tr>
         <tr>
             <td>Password:</td>
             <td><input type="password" th:field="*{password}" /></td>
-            <!--<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</td>-->
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</td>
         </tr>
         <tr>
             <td>Port:</td>
             <td><input type="number" th:field="*{port}" /></td>
-            <!--<td th:if="${#fields.hasErrors('port')}" th:errors="*{port}">Port error message</td>-->
+            <td th:if="${#fields.hasErrors('port')}" th:errors="*{port}">Port error message</td>
         </tr>
         <tr>
             <td>SmtpAuth:</td>
             <td><input type="checkbox" th:field="*{smtpAuth}" /></td>
-            <!--<td th:if="${#fields.hasErrors('smtpAuth')}" th:errors="*{smtpAuth}">SmtpAuth error message</td>-->
+            <td th:if="${#fields.hasErrors('smtpAuth')}" th:errors="*{smtpAuth}">SmtpAuth error message</td>
         </tr>
         <tr>
             <td>StartTls:</td>
             <td><input type="checkbox" th:field="*{starttls}" /></td>
-            <!--<td th:if="${#fields.hasErrors('startTls')}" th:errors="*{starttls}">StartTls error message</td>-->
+            <td th:if="${#fields.hasErrors('starttls')}" th:errors="*{starttls}">StartTls error message</td>
         </tr>
         <tr>
             <td>From email:</td>
             <td><input type="email" th:field="*{from}" /></td>
-            <!--<td th:if="${#fields.hasErrors('fromEmail')}" th:errors="*{from}">From email error message</td>-->
+            <td th:if="${#fields.hasErrors('from')}" th:errors="*{from}">From email error message</td>
         </tr>
         <tr>
             <td>From name:</td>
             <td><input type="text" th:field="*{fromName}" /></td>
-            <!--<td th:if="${#fields.hasErrors('fromName')}" th:errors="*{fromName}">From name error message</td>-->
+            <td th:if="${#fields.hasErrors('fromName')}" th:errors="*{fromName}">From name error message</td>
         </tr>
         <tr>
             <td><button type="submit">Submit post</button></td>
