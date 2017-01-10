@@ -28,10 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         List<User> users = service.getAllUsers();
         // If in DB no users you can access to "add-user" using login "admin" and password "admin"
         if (users.isEmpty()) {
-            auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ONE_TIME_ACCESS");
+            auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
         } else {
             for (User user : users) {
-                auth.inMemoryAuthentication().withUser(user.getLogin()).password(user.getPassword()).roles(user.getUserGroup().name());
+                auth.inMemoryAuthentication().passwordEncoder(passwordEncoder()).withUser(user.getLogin()).password(user.getPassword()).roles(user.getUserGroup().name());
             }
         }
     }
@@ -40,9 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/add-user/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
-                .antMatchers("/setting/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
-                .antMatchers("/setting/**").access("hasRole('ONE_TIME_ACCESS')")
-                .and().formLogin().defaultSuccessUrl("/", false);
+                .antMatchers("/settings/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
+                .and().formLogin().defaultSuccessUrl("/", false)
+                .and().logout().logoutUrl("/logout-success").logoutSuccessUrl("/logout-success");
 
     }
 

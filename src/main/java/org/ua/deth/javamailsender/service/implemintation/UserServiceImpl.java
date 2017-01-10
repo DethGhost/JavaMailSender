@@ -1,6 +1,7 @@
 package org.ua.deth.javamailsender.service.implemintation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.ua.deth.javamailsender.entity.User;
 import org.ua.deth.javamailsender.repository.UserRepository;
@@ -18,7 +19,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     public void save(User user){
+        user.setPassword(encoder.encode(user.getPassword()));
         repository.saveAndFlush(user);
     }
 
