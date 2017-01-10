@@ -29,7 +29,22 @@ public class SubscriberGroupServiceImpl implements SubscriberGroupService {
     }
 
     @Override
-    public void deleteById(long id) {
-        repository.delete(id);
+    public boolean deleteById(long id) {
+        if(repository.findOne(id) != null){
+            repository.delete(id);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public SubscriberGroup findByName(String group) {
+        return repository.finfByName(group);
+    }
+
+    @Override
+    public SubscriberGroup findById(long id) {
+        return repository.findOne(id);
     }
 }

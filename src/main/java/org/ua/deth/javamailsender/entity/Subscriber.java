@@ -49,4 +49,12 @@ public class Subscriber {
     public void setGroup(SubscriberGroup group) {
         this.group = group;
     }
+
+    public long getSubscriberId() {
+        return subscriberId;
+    }
+
+    public void setSubscriberId(long subscriberId) {
+        this.subscriberId = subscriberId;
+    }
 }

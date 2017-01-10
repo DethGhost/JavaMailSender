@@ -36,21 +36,21 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "add-user", method = RequestMethod.GET)
+    @RequestMapping(value = "/setting/add-user", method = RequestMethod.GET)
     public ModelAndView addUser() {
-        ModelAndView modelAndView = new ModelAndView("add-user");
+        ModelAndView modelAndView = new ModelAndView("setting/add-user");
         modelAndView.addObject("userForm", new User());
         modelAndView.addObject("groupList", UserGroup.values());
         return modelAndView;
     }
 
-    @RequestMapping(value = "saveUser", method = RequestMethod.POST)
+    @RequestMapping(value = "setting/saveUser", method = RequestMethod.POST)
     public ModelAndView saveUser(@ModelAttribute("userForm") @Validated User user, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
-            modelAndView.setViewName("add-user");
+            modelAndView.setViewName("setting/add-user");
         } else if (service.isExist(user.getLogin())) {
-            modelAndView.setViewName("redirect:/add-user");
+            modelAndView.setViewName("redirect:/setting/add-user");
             modelAndView.addObject("loginExist", "Login already used. Choose another login name.");
         } else {
             service.save(user);

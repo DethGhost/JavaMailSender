@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Edit subscriber group</title>
+</head>
+<body>
+<form th:action="@{/setting/do-edit-group}" action="#" th:object="${groupEdit}" method="post">
+    <label>Edit Group name:</label>
+    <br /><input name="group" th:value="*{groupName}" type="text" required="required"/>
+    <input name="id" hidden="hidden" readonly="readonly" th:value="*{subscriberGroupId}"/>
+    <br /><button>Edit</button>
+</form>
+</body>
+</html>

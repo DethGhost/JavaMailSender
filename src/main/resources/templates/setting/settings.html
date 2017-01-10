@@ -6,8 +6,7 @@
     <title>Setting page</title>
 </head>
 <body onload="go()">
-<!--/*@thymesVar id="mailSetting" type="org.ua.deth.javamailsender.entity.MailSetting"*/-->
-<form th:action="@{/saveSettings}" action="#" th:object="${mailSetting}" method="post">
+<form th:action="@{/setting/saveSettings}" action="#" th:object="${mailSetting}" method="post">
     <table>
         <tr>
             <td>Host:</td>

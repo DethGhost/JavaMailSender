@@ -43,4 +43,12 @@ public class Mail {
     public void setText(String text) {
         this.text = text;
     }
+
+    public long getMailId() {
+        return mailId;
+    }
+
+    public void setMailId(long mailId) {
+        this.mailId = mailId;
+    }
 }

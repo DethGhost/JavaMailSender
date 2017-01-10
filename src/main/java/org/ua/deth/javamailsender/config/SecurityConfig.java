@@ -39,10 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/add-user/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
-                .antMatchers("/settings/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
-                .antMatchers("/subscribers/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
-                .antMatchers("/subscribers/**").access("hasRole('ROLE_" + UserGroup.ONLY_ADD_SUBSCRIBERS + "')")
+                .antMatchers("/setting/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
+                .antMatchers("/subscribers/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "') or hasRole('ROLE_" + UserGroup.ONLY_ADD_SUBSCRIBERS + "')")
+                .antMatchers("/setting/add-user/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "') or hasRole('ROLE_" + UserGroup.USER + "')")
                 .and().formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/doLogin")
@@ -51,9 +50,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/", false)
                 .and().logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .and().exceptionHandling().accessDeniedPage("/403");
+                .logoutSuccessUrl("/");
 
+    }
+
+    private String[] roles(String role){
+        if(role.equals("adminAndOnlySub")){
+            return new String[]{UserGroup.ADMIN.name(),UserGroup.ONLY_ADD_SUBSCRIBERS.name()};
+        }else if(role.equals("adminAndUser")){
+            return new String[]{UserGroup.ADMIN.name(),UserGroup.USER.name()};
+        }else if(role.equals("adminAndUserAndOnlySub")){
+            return new String[]{UserGroup.ADMIN.name(),UserGroup.USER.name(),UserGroup.ONLY_ADD_SUBSCRIBERS.name()};
+        }else {
+            return new String[]{UserGroup.ADMIN.name()};
+        }
     }
 
     @Bean(name = "passwordEncoder")

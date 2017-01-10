@@ -28,4 +28,12 @@ public class SubscriberGroup {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
+    public long getSubscriberGroupId() {
+        return subscriberGroupId;
+    }
+
+    public void setSubscriberGroupId(long subscriberGroupId) {
+        this.subscriberGroupId = subscriberGroupId;
+    }
 }

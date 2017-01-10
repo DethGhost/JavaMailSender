@@ -28,7 +28,7 @@ public class LoginController {
         if (httpRequestHandler.getRemoteUser() == null) {
             return new ModelAndView("login");
         } else {
-            return new ModelAndView("redirect:/logout");
+            return new ModelAndView("logout");
         }
     }
 

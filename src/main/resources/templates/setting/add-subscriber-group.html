@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add new subscriber GROUP</title>
+</head>
+<body>
+<h1>Add group:</h1>
+<form th:action="@{/setting/save-group}" action="#" th:object="${subscriberGroup}" method="post">
+    <label>Enter Group name:</label>
+    <br /><input th:field="*{groupName}" type="text" required="required"/>
+    <br /><button>Add</button>
+</form>
+</body>
+</html>

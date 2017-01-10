@@ -13,5 +13,9 @@ public interface SubscriberGroupService {
 
     List<SubscriberGroup> getAllGroup();
 
-    void deleteById(long id);
+    boolean deleteById(long id);
+
+    SubscriberGroup findByName(String group);
+
+    SubscriberGroup findById(long id);
 }

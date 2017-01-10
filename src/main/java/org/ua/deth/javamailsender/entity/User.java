@@ -50,4 +50,12 @@ public class User {
     public void setUserGroup(UserGroup userGroup) {
         this.userGroup = userGroup;
     }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>All Subscriber Group</title>
+</head>
+<body>
+<h1>All group are here</h1>
+<table>
+    <form th:action="@{/setting/edit-group}" method="get">
+    <tr th:each="group: ${groupList}">
+        <td><label th:text="${group.groupName}"/></td>
+        <td><button name="id" th:value="${group.subscriberGroupId}">Edit</button></td>
+        <td><button name="delete" th:value="${group.subscriberGroupId}">Delete</button></td>
+
+    </tr>
+    </form>
+</table>
+</body>
+</html>
