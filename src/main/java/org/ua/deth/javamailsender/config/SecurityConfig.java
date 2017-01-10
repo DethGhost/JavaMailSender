@@ -41,8 +41,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/add-user/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
                 .antMatchers("/settings/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
-                .and().formLogin().defaultSuccessUrl("/", false)
-                .and().logout().logoutUrl("/logout-success").logoutSuccessUrl("/logout-success");
+                .antMatchers("/subscribers/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
+                .antMatchers("/subscribers/**").access("hasRole('ROLE_" + UserGroup.ONLY_ADD_SUBSCRIBERS + "')")
+                .and().formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/doLogin")
+                .usernameParameter("login")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/", false)
+                .and().logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .and().exceptionHandling().accessDeniedPage("/403");
 
     }
 

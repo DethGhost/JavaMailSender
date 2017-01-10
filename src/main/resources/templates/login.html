@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login to JavaMailSender</title>
+</head>
+<body>
+<form th:action="@{/doLogin}" method="POST">
+    User Name : <input type="text" name="login"/> <br/><br/>
+    Password: <input type="password" name="password"/> <br/><br/>
+    <input type="submit" value="Login"/>
+</form>
+</body>
+</html>

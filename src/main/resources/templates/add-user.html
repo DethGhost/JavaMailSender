@@ -11,7 +11,7 @@
         <tr>
             <td>Login:</td>
             <td><input type="text" th:field="*{login}" required="required"/></td>
-            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login already exist.</td>
+            <td th:text="${loginError}" />
         </tr>
         <tr>
             <td>Password:</td>

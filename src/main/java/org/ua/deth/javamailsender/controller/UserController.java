@@ -50,7 +50,7 @@ public class UserController {
         if (result.hasErrors()) {
             modelAndView.setViewName("add-user");
         } else if (service.isExist(user.getLogin())) {
-            modelAndView.setViewName("add-user");
+            modelAndView.setViewName("redirect:/add-user");
             modelAndView.addObject("loginExist", "Login already used. Choose another login name.");
         } else {
             service.save(user);
