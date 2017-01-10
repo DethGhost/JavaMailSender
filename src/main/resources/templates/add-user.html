@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <script src="/js/password.js" type="text/javascript"></script>
+    <title>Add user to db</title>
+</head>
+<body onload="go()">
+<form th:action="@{/saveUser}" action="#" th:object="${userForm}" method="post">
+    <table>
+        <tr>
+            <td>Login:</td>
+            <td><input type="text" th:field="*{login}" required="required"/></td>
+            <td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login already exist.</td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input id="password" type="password" th:field="*{password}" required="required"/></td>
+            <td><button id="show-button" onclick="show()" type="button">Show password</button> </td>
+        </tr>
+        <tr>
+            <td>Group:</td>
+            <td><select th:field="*{userGroup}">
+                <option th:each="var : ${groupList}"
+                        th:value="${var}"
+                        th:text="${var}">
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit post</button></td>
+        </tr>
+    </table></form>
+</body>
+</html>

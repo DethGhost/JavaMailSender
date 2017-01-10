@@ -1,10 +1,11 @@
-package org.ua.deth.javamailsender.service;
+package org.ua.deth.javamailsender.service.implemintation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.ua.deth.javamailsender.entity.MailSetting;
 import org.ua.deth.javamailsender.repository.MailSettingRepository;
+import org.ua.deth.javamailsender.service.MailSettingService;
 
 /**
  * Created by Eugene Khudoliiv.

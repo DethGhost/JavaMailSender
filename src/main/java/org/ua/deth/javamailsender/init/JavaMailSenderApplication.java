@@ -4,13 +4,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.io.IOException;
+
 @SpringBootApplication
 @ComponentScan("org.ua.deth.javamailsender")
 public class JavaMailSenderApplication {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         SpringApplication.run(JavaMailSenderApplication.class, args);
+        OpenUrlOnStartUp.openUrl();
     }
 
 }

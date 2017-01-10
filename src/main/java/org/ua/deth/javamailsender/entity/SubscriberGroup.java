@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class SubscriberGroup {
 
     @Id
-    @SequenceGenerator(name = "subscriber_group_id_seq", sequenceName = "subscriber_group_id_seq")
+    @SequenceGenerator(name = "subscriber_group_id_seq", sequenceName = "subscriber_group_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subscriber_group_id_seq")
     @Column(name = "subscriber_group_id")
     private long subscriberGroupId;

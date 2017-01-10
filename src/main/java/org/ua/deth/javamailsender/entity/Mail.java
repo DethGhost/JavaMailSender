@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Mail {
 
     @Id
-    @SequenceGenerator(name = "mail_id_seq", sequenceName = "mail_id_seq")
+    @SequenceGenerator(name = "mail_id_seq", sequenceName = "mail_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mail_id_seq")
     @Column(name = "mail_id")
     private long mailId;
@@ -28,12 +28,12 @@ public class Mail {
     public Mail() {
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
     public String getSubject() {
         return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getText() {
