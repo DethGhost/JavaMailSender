@@ -32,4 +32,9 @@ public class SubscriberServiceImpl implements SubscriberService {
     public void deleteById(long id) {
         repository.delete(id);
     }
+
+    @Override
+    public Subscriber getSubscriberById(long id) {
+        return repository.findOne(id);
+    }
 }

@@ -7,7 +7,12 @@
 </head>
 <body onload="go()">
 
-<h1>All group are here</h1>
+<h1>All mail templates are here</h1>
+<div th:if="${mailTemplateList} == null">
+    <a href="/mail/add-mail-template">
+        <button type="button">Add mail template</button>
+    </a>
+</div>
 <table>
     <form id="form" th:action="@{/mail/edit-mail-template}" method="get">
         <tr th:each="mail: ${mailTemplateList}">

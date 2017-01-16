@@ -16,4 +16,6 @@ public interface SubscriberService {
 
     void deleteById(long id);
 
+    Subscriber getSubscriberById(long id);
+
 }

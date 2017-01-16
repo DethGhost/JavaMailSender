@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
+    <script src="/js/jms.js" type="text/javascript"></script>
     <title>Title</title>
 </head>
-<body>
+<body onload="go()">
+<h1>All group are here</h1>
+<div th:if="${#lists.isEmpty(subscribers)}">
+    <a href="/subscribers/add-subscriber">
+        <button type="button">Add mail template</button>
+    </a>
+</div>
 
+<table>
+    <form id="form" th:action="@{/subscribers/edit-subscriber}" method="get">
+        <tr th:each="subscriber: ${subscribers}">
+            <td><input id="whatToDo" name="whatToDo" hidden="hidden" type="checkbox"/>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <label th:text="${subscriber.fullName}"/></td>
+            <td>
+                <button name="id" th:value="${subscriber.subscriberId}">
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button onclick="checkThat()" id="deleteGroup" name="id" th:value="${subscriber.subscriberId}">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </form>
+</table>
 </body>
 </html>

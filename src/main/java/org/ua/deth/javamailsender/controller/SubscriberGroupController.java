@@ -20,11 +20,6 @@ public class SubscriberGroupController {
     @Autowired
     private SubscriberGroupService groupService;
 
-    @RequestMapping(value = "subscribers", method = RequestMethod.GET)
-    public ModelAndView subscribers() {
-        return new ModelAndView("redirect:/subscribers/subscriber-group");
-    }
-
     @RequestMapping(value = "/setting/add-subscriber-group", method = RequestMethod.GET)
     public ModelAndView addSubscriberGroup() {
         ModelAndView modelAndView = new ModelAndView("setting/add-subscriber-group");
@@ -48,7 +43,7 @@ public class SubscriberGroupController {
     @RequestMapping(value = "/setting/edit-group", method = RequestMethod.GET)
     public ModelAndView editGroup(@RequestParam("id") long id) {
         ModelAndView modelAndView = new ModelAndView("/setting/edit-subscriber-group");
-        modelAndView.addObject("groupEdit", groupService.findById(id));
+        modelAndView.addObject("subscriberGroup", groupService.findById(id));
         return modelAndView;
     }
 
@@ -66,7 +61,6 @@ public class SubscriberGroupController {
     public ModelAndView doEdit(@RequestParam("group") String group, @RequestParam("id") long id) {
         ModelAndView modelAndView = new ModelAndView("redirect:/setting/subscriber-group-list");
         SubscriberGroup subscriberGroup = groupService.findById(id);
-
         subscriberGroup.setGroupName(group);
         groupService.save(subscriberGroup);
         return modelAndView;
