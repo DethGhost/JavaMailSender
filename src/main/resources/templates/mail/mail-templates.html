@@ -2,24 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>All Subscriber Group</title>
     <script src="/js/jms.js" type="text/javascript"></script>
-
+    <title>Title</title>
 </head>
 <body onload="go()">
+
 <h1>All group are here</h1>
 <table>
-    <form id="form" th:action="@{/setting/edit-group}" method="get">
-        <tr th:each="group: ${groupList}">
+    <form id="form" th:action="@{/mail/edit-mail-template}" method="get">
+        <tr th:each="mail: ${mailTemplateList}">
             <td><input id="whatToDo" name="whatToDo" hidden="hidden" type="checkbox"/>
-                <label th:text="${group.groupName}"/></td>
+                <label th:text="${mail.subject}"/></td>
             <td>
-                <button name="id" th:value="${group.subscriberGroupId}">
+                <button name="id" th:value="${mail.mailId}">
                     Edit
                 </button>
             </td>
             <td>
-                <button onclick="checkThat()" id="deleteGroup" name="id" th:value="${group.subscriberGroupId}">
+                <button onclick="checkThat()" id="deleteMailTemplate" name="id" th:value="${mail.mailId}">
                     Delete
                 </button>
             </td>

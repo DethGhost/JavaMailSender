@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable().authorizeRequests()
                 .antMatchers("/setting/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "')")
                 .antMatchers("/subscribers/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "') or hasRole('ROLE_" + UserGroup.ONLY_ADD_SUBSCRIBERS + "')")
                 .antMatchers("/setting/add-user/**").access("hasRole('ROLE_" + UserGroup.ADMIN + "') or hasRole('ROLE_" + UserGroup.USER + "')")
