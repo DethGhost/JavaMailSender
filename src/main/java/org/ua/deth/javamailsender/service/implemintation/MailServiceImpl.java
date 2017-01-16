@@ -1,6 +1,7 @@
 package org.ua.deth.javamailsender.service.implemintation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.ua.deth.javamailsender.entity.Mail;
 import org.ua.deth.javamailsender.repository.MailRepository;
 import org.ua.deth.javamailsender.service.MailService;
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Eugene Khudoliiv.
  * (eugenkhidoliiv@gmail.com)
  */
+@Service
 public class MailServiceImpl implements MailService {
 
     @Autowired

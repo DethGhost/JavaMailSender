@@ -20,5 +20,11 @@ public class IndexController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/exit", method = RequestMethod.GET)
+    public ModelAndView doExit() {
+        System.exit(1);
+        return new ModelAndView();
+    }
+
 
 }
