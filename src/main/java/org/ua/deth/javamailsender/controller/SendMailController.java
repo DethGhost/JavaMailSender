@@ -21,31 +21,31 @@ import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-@Controller
-
-
 /**
  * Created by Eugene Khudoliiv.
  * (eugenkhidoliiv@gmail.com)
  */
+@Controller
 public class SendMailController {
 
-    @Autowired
-    private SubscriberService subscriberService;
+    private final SubscriberService subscriberService;
 
-    @Autowired
-    private SubscriberGroupService subscriberGroupService;
+    private final SubscriberGroupService subscriberGroupService;
 
-    @Autowired
-    private MailService mailService;
+    private final MailService mailService;
 
-    @Autowired
-    private MailSettingService mailSettingService;
+    private final MailSettingService mailSettingService;
 
     private MailConfig mailConfig = MailConfig.getInstance();
 
+    @Autowired
+    public SendMailController(SubscriberService subscriberService, SubscriberGroupService subscriberGroupService, MailService mailService, MailSettingService mailSettingService) {
+        this.subscriberService = subscriberService;
+        this.subscriberGroupService = subscriberGroupService;
+        this.mailService = mailService;
+        this.mailSettingService = mailSettingService;
+    }
 
-    private JavaMailSender javaMailSender;
 
     @RequestMapping(value = "/mail/send-mails", method = RequestMethod.GET)
     public ModelAndView getSendMail() {
@@ -59,7 +59,7 @@ public class SendMailController {
     public ModelAndView send(@RequestParam("template") String mailTemplateId, @RequestParam("subscriberList") String subscriberListId) {
         MailSetting setting = mailSettingService.getMailSetting();
         mailConfig.setSetting(setting);
-        javaMailSender = mailConfig.getJavaMailSender();
+        JavaMailSender javaMailSender = mailConfig.getJavaMailSender();
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         Mail mail = mailService.getOneMailTemplate(Long.parseLong(mailTemplateId));
         mailMessage.setFrom(setting.getFromName() + "<" + setting.getFrom() + ">");
