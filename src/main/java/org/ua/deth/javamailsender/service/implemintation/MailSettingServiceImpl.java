@@ -18,7 +18,7 @@ public class MailSettingServiceImpl implements MailSettingService {
 
     @Override
     public MailSetting getMailSetting() {
-        return null;
+        return repository.findOne(1L);
     }
 
     @Override

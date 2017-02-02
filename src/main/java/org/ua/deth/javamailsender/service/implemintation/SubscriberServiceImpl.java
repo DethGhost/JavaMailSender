@@ -3,10 +3,12 @@ package org.ua.deth.javamailsender.service.implemintation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ua.deth.javamailsender.entity.Subscriber;
+import org.ua.deth.javamailsender.repository.SubscriberGroupRepository;
 import org.ua.deth.javamailsender.repository.SubscriberRepository;
 import org.ua.deth.javamailsender.service.SubscriberService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Eugene Khudoliiv.
@@ -17,6 +19,9 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Autowired
     private SubscriberRepository repository;
+
+    @Autowired
+    private SubscriberGroupRepository groupRepository;
 
     @Override
     public void save(Subscriber subscriber) {
@@ -40,6 +45,6 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public List<Subscriber> getByGroup(long id) {
-        return repository.getAllInGroup(id);
+        return repository.findAll().stream().filter((subscriber) -> subscriber.getGroup().getSubscriberGroupId() == id).collect(Collectors.toList());
     }
 }

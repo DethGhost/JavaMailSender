@@ -10,18 +10,20 @@
         <tr>
             <td>
                 <h1>Select group to sending email:</h1>
-                <select>
-                    <option name="subscriberList" th:each="var :${subscriberGroup}"
+                <select name="subscriberList">
+                    <option th:each="var :${subscriberGroup}"
                             th:value="${var.subscriberGroupId}"
-                            th:text="${var.groupName}"></option>
+                            th:text="${var.groupName}"
+                    ></option>
                 </select>
             </td>
             <td>
                 <h1>Select mail Template:</h1>
-                <select>
-                    <option name="template" th:each="var :${mailTemplate}"
+                <select name="template">
+                    <option th:each="var :${mailTemplate}"
                             th:value="${var.mailId}"
-                            th:text="${var.subject}"></option>
+                            th:text="${var.subject}"
+                    ></option>
                 </select>
             </td>
         </tr>

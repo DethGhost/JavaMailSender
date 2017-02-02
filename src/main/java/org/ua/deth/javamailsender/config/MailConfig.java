@@ -11,7 +11,6 @@ import java.util.Properties;
  * <p>
  * I can`t do spring-boot autowired this config, use that monster...
  */
-
 public class MailConfig {
 
     public static MailConfig ourInstance = new MailConfig();
@@ -23,11 +22,15 @@ public class MailConfig {
     private String auth;
     private String starttls;
 
-    public MailConfig() {
+    private MailConfig() {
 
     }
 
-    public MailConfig(MailSetting setting) {
+    public static MailConfig getInstance() {
+        return ourInstance;
+    }
+
+    public void setSetting(MailSetting setting) {
         this.host = setting.getHost();
         this.port = setting.getPort();
         this.from = setting.getFrom();
@@ -37,11 +40,8 @@ public class MailConfig {
         this.starttls = Boolean.toString(setting.getStarttls());
     }
 
-    public static MailConfig getInstance() {
-        return ourInstance;
-    }
-
     public JavaMailSenderImpl getJavaMailSender() {
+
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setUsername(username);
         javaMailSender.setHost(host);
@@ -54,6 +54,7 @@ public class MailConfig {
     private Properties getMailProperties() {
         Properties properties = new Properties();
         properties.setProperty("mail.smtp.auth", auth);
+        properties.setProperty("mail.mime.charset", "UTF-8");
         properties.setProperty("mail.smtp.starttls.enable", starttls);
         return properties;
     }

@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.ua.deth.javamailsender.config.MailConfig;
 import org.ua.deth.javamailsender.entity.Mail;
+import org.ua.deth.javamailsender.entity.MailSetting;
 import org.ua.deth.javamailsender.entity.Subscriber;
 import org.ua.deth.javamailsender.service.MailService;
 import org.ua.deth.javamailsender.service.MailSettingService;
 import org.ua.deth.javamailsender.service.SubscriberGroupService;
 import org.ua.deth.javamailsender.service.SubscriberService;
 
+import javax.mail.internet.InternetAddress;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -39,6 +42,9 @@ public class SendMailController {
     @Autowired
     private MailSettingService mailSettingService;
 
+    private MailConfig mailConfig = MailConfig.getInstance();
+
+
     private JavaMailSender javaMailSender;
 
     @RequestMapping(value = "/mail/send-mails", method = RequestMethod.GET)
@@ -50,20 +56,25 @@ public class SendMailController {
     }
 
     @RequestMapping(value = "/mail/send", method = RequestMethod.POST)
-    public ModelAndView send(@RequestParam("template") long mailTemplateId, @RequestParam("subscriberList") long subscriberListId) {
-        MailConfig mailConfig = new MailConfig(mailSettingService.getMailSetting());
+    public ModelAndView send(@RequestParam("template") String mailTemplateId, @RequestParam("subscriberList") String subscriberListId) {
+        MailSetting setting = mailSettingService.getMailSetting();
+        mailConfig.setSetting(setting);
         javaMailSender = mailConfig.getJavaMailSender();
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        Mail mail = mailService.getOneMailTemplate(mailTemplateId);
-        List<Subscriber> subscribers = subscriberService.getByGroup(subscriberListId);
-        String[] subscribersList = new String[subscribers.size()];
-        for (int i = 0; i < subscribers.size(); i++) {
-            subscribersList[i] = subscribers.get(i).getFullName() + "<" + subscribers.get(i).getEmail() + ">";
-        }
+        Mail mail = mailService.getOneMailTemplate(Long.parseLong(mailTemplateId));
+        mailMessage.setFrom(setting.getFromName() + "<" + setting.getFrom() + ">");
         mailMessage.setText(mail.getText());
         mailMessage.setSubject(mail.getSubject());
-        mailMessage.setBcc(subscribersList);
-        javaMailSender.send(mailMessage);
+        List<Subscriber> subscribers = subscriberService.getByGroup(Long.parseLong(subscriberListId));
+        for (Subscriber subscriber : subscribers) {
+            try {
+                mailMessage.setTo(new InternetAddress(subscriber.getEmail(), subscriber.getFullName(), "UTF-8").toString());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            javaMailSender.send(mailMessage);
+        }
+
 
         return new ModelAndView("/mail/result");
     }
