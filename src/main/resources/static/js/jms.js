@@ -1,5 +1,6 @@
 /**
- * Created by DethGhost on 09.01.2017.
+ * Created by Eugene Khudoliiv.
+ * (eugenkhidoliiv@gmail.com)
  */
 var passwordF;
 var show_button;

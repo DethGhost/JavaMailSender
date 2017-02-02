@@ -13,7 +13,7 @@ public interface SubscriberGroupService {
 
     List<SubscriberGroup> getAllGroup();
 
-    boolean deleteById(long id);
+    void deleteById(long id);
 
     SubscriberGroup findByName(String group);
 

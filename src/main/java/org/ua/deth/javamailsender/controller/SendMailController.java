@@ -36,7 +36,7 @@ public class SendMailController {
 
     private final MailSettingService mailSettingService;
 
-    private MailConfig mailConfig = MailConfig.getInstance();
+    private final MailConfig mailConfig = MailConfig.getInstance();
 
     @Autowired
     public SendMailController(SubscriberService subscriberService, SubscriberGroupService subscriberGroupService, MailService mailService, MailSettingService mailSettingService) {

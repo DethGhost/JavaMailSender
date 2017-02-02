@@ -12,7 +12,7 @@
         <tr th:each="subscriber: ${subscribers}">
             <td><input id="whatToDo" name="whatToDo" hidden="hidden" type="checkbox"/>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <label th:text="${subscriber.fullName}"/></td>
+                <label th:text="${subscriber.fullName}"></label></td>
             <td>
                 <button name="id" th:value="${subscriber.subscriberId}">
                     Edit

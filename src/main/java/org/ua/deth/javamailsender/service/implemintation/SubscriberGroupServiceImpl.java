@@ -15,8 +15,12 @@ import java.util.List;
 @Service
 public class SubscriberGroupServiceImpl implements SubscriberGroupService {
 
+    private final SubscriberGroupRepository repository;
+
     @Autowired
-    private SubscriberGroupRepository repository;
+    public SubscriberGroupServiceImpl(SubscriberGroupRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public void save(SubscriberGroup subscriberGroup) {
@@ -29,12 +33,12 @@ public class SubscriberGroupServiceImpl implements SubscriberGroupService {
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public void deleteById(long id) {
         if(repository.findOne(id) != null){
             repository.delete(id);
-            return true;
+            return;
         }else{
-            return false;
+            return;
         }
     }
 

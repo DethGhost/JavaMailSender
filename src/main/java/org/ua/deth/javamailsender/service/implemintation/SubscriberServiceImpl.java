@@ -17,11 +17,15 @@ import java.util.stream.Collectors;
 @Service
 public class SubscriberServiceImpl implements SubscriberService {
 
-    @Autowired
-    private SubscriberRepository repository;
+    private final SubscriberRepository repository;
+
+    private final SubscriberGroupRepository groupRepository;
 
     @Autowired
-    private SubscriberGroupRepository groupRepository;
+    public SubscriberServiceImpl(SubscriberRepository repository, SubscriberGroupRepository groupRepository) {
+        this.repository = repository;
+        this.groupRepository = groupRepository;
+    }
 
     @Override
     public void save(Subscriber subscriber) {

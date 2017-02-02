@@ -15,11 +15,15 @@ import java.util.List;
 @Service
 public class MailServiceImpl implements MailService {
 
+    private final MailRepository repository;
+
     @Autowired
-    private MailRepository repository;
+    public MailServiceImpl(MailRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public Mail saveMailTemplate(Mail mail) {
+    public void saveMailTemplate(Mail mail) {
         return repository.save(mail);
     }
 

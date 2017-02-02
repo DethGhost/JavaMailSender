@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 public class MailConfig {
 
-    private static MailConfig ourInstance = new MailConfig();
+    private static final MailConfig ourInstance = new MailConfig();
     private String host;
     private int port;
     private String username;

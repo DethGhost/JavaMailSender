@@ -6,6 +6,6 @@ package org.ua.deth.javamailsender.entity;
  * (eugenkhidoliiv@gmail.com)
  */
 public enum UserGroup {
-    USER, ADMIN, ONLY_ADD_SUBSCRIBERS;
+    USER, ADMIN, ONLY_ADD_SUBSCRIBERS
 
 }
