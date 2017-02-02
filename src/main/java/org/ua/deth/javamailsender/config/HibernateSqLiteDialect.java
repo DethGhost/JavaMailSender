@@ -13,6 +13,7 @@ import java.sql.Types;
  * (eugenkhidoliiv@gmail.com)
  *
  * This class add Hibernate SqLiteDialect
+ * found this class on the Internet, if you wrote it, let me know
  *
  */
 public class HibernateSqLiteDialect extends Dialect {

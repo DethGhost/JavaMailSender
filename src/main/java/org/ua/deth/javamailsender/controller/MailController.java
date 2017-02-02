@@ -16,8 +16,12 @@ import org.ua.deth.javamailsender.service.MailService;
 @Controller
 public class MailController {
 
+    private final MailService service;
+
     @Autowired
-    private MailService service;
+    public MailController(MailService service) {
+        this.service = service;
+    }
 
     @RequestMapping(value = "/mail/mail-templates", method = RequestMethod.GET)
     public ModelAndView mailTemplates() {

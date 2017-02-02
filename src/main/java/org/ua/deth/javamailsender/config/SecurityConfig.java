@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         List<User> users = service.getAllUsers();
-        // If in DB no users you can access to "add-user" using login "admin" and password "admin"
+        // If in DB no users you can get access to "add-user" using login "admin" and password "admin"
         if (users.isEmpty()) {
             auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
         } else {
@@ -52,18 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
 
-    }
-
-    private String[] roles(String role) {
-        if (role.equals("adminAndOnlySub")) {
-            return new String[]{UserGroup.ADMIN.name(), UserGroup.ONLY_ADD_SUBSCRIBERS.name()};
-        } else if (role.equals("adminAndUser")) {
-            return new String[]{UserGroup.ADMIN.name(), UserGroup.USER.name()};
-        } else if (role.equals("adminAndUserAndOnlySub")) {
-            return new String[]{UserGroup.ADMIN.name(), UserGroup.USER.name(), UserGroup.ONLY_ADD_SUBSCRIBERS.name()};
-        } else {
-            return new String[]{UserGroup.ADMIN.name()};
-        }
     }
 
     @Bean(name = "passwordEncoder")

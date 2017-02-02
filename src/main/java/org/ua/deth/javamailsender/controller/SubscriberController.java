@@ -20,11 +20,15 @@ import org.ua.deth.javamailsender.service.SubscriberService;
 @Controller
 public class SubscriberController {
 
-    @Autowired
-    private SubscriberService service;
+    private final SubscriberService service;
+
+    private final SubscriberGroupService groupService;
 
     @Autowired
-    private SubscriberGroupService groupService;
+    public SubscriberController(SubscriberService service, SubscriberGroupService groupService) {
+        this.service = service;
+        this.groupService = groupService;
+    }
 
     @RequestMapping(value = "/subscribers", method = RequestMethod.GET)
     public ModelAndView getSubscribers() {

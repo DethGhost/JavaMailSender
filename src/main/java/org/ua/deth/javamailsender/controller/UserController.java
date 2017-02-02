@@ -22,8 +22,12 @@ import java.util.Map;
 @Controller
 public class UserController {
 
+    private final UserService service;
+
     @Autowired
-    private UserService service;
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView users(HttpSession session, Map<String, Object> map) {

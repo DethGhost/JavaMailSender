@@ -18,8 +18,12 @@ import org.ua.deth.javamailsender.service.MailSettingService;
 @Controller
 public class SettingController {
 
+    private final MailSettingService service;
+
     @Autowired
-    private MailSettingService service;
+    public SettingController(MailSettingService service) {
+        this.service = service;
+    }
 
     @RequestMapping(value = "/setting/settings", method = RequestMethod.GET)
     public ModelAndView getSetting() {

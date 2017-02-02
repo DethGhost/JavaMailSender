@@ -17,8 +17,12 @@ import org.ua.deth.javamailsender.service.SubscriberGroupService;
 @Controller
 public class SubscriberGroupController {
 
+    private final SubscriberGroupService groupService;
+
     @Autowired
-    private SubscriberGroupService groupService;
+    public SubscriberGroupController(SubscriberGroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @RequestMapping(value = "/setting/add-subscriber-group", method = RequestMethod.GET)
     public ModelAndView addSubscriberGroup() {
