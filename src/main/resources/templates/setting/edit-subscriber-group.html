@@ -5,11 +5,12 @@
     <title>Edit subscriber group</title>
 </head>
 <body>
-<form th:action="@{/setting/save-group}" action="#" th:object="${subscriberGroup}" method="post">
+<form th:action="@{/setting/do-edit-group}" action="#" th:object="${subscriberGroup}" method="post">
     <label>Edit Group name:</label>
     <br /><input name="group" th:value="*{groupName}" type="text" required="required"/>
     <input name="id" hidden="hidden" readonly="readonly" th:value="*{subscriberGroupId}"/>
-    <br /><button>Edit</button>
+    <br/>
+    <button>Save</button>
 </form>
 </body>
 </html>

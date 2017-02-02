@@ -10,9 +10,8 @@ import java.io.IOException;
 @ComponentScan("org.ua.deth.javamailsender")
 public class JavaMailSenderApplication {
 
-
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(JavaMailSenderApplication.class, args);
+        SpringApplication.run(JavaMailSenderApplication.class, "--debug");
         OpenUrlOnStartUp.openUrl();
     }
 

@@ -7,12 +7,6 @@
 </head>
 <body onload="go()">
 <h1>All group are here</h1>
-<div th:if="${#lists.isEmpty(subscribers)}">
-    <a href="/subscribers/add-subscriber">
-        <button type="button">Add mail template</button>
-    </a>
-</div>
-
 <table>
     <form id="form" th:action="@{/subscribers/edit-subscriber}" method="get">
         <tr th:each="subscriber: ${subscribers}">
@@ -32,5 +26,8 @@
         </tr>
     </form>
 </table>
+<a href="/subscribers/add-subscriber">
+    <button type="button">Add Subscriber</button>
+</a>
 </body>
 </html>

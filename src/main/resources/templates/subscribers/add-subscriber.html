@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Add Subscriber to Db</title>
 </head>
 <body>
+<h1>Add subscriber</h1>
+
+<form id="form" th:action="@{/subscribers/add-subscriber}" th:object="${subscriberForm}" method="post">
+    <table>
+        <tr>
+            <td>Full name:</td>
+            <td><input type="text" th:field="*{fullName}" required="required"/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" th:field="*{email}" required="required"/></td>
+        </tr>
+        <tr>
+            <td>Group list:</td>
+            <td>
+                <select th:field="*{group}">
+                    <option th:each="var: ${groupList}"
+                            th:value="${var.subscriberGroupId}"
+                            th:text="${var.groupName}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit post</button>
+            </td>
+        </tr>
+    </table>
+</form>
 
 </body>
 </html>

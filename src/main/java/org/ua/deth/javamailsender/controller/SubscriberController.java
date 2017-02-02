@@ -2,12 +2,15 @@ package org.ua.deth.javamailsender.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.ua.deth.javamailsender.entity.Subscriber;
+import org.ua.deth.javamailsender.service.SubscriberGroupService;
 import org.ua.deth.javamailsender.service.SubscriberService;
 
 /**
@@ -19,6 +22,9 @@ public class SubscriberController {
 
     @Autowired
     private SubscriberService service;
+
+    @Autowired
+    private SubscriberGroupService groupService;
 
     @RequestMapping(value = "/subscribers", method = RequestMethod.GET)
     public ModelAndView getSubscribers() {
@@ -37,6 +43,20 @@ public class SubscriberController {
     @RequestMapping(value = "/subscribers/add-subscriber", method = RequestMethod.GET)
     public ModelAndView addSubscriber() {
         ModelAndView modelAndView = new ModelAndView("/subscribers/add-subscriber");
+        modelAndView.addObject("groupList", groupService.getAllGroup());
+        modelAndView.addObject("subscriberForm", new Subscriber());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/subscribers/add-subscriber", method = RequestMethod.POST)
+    public ModelAndView saveSubscriber(@ModelAttribute("subscriberForm") @Validated Subscriber subscriber, BindingResult result) {
+        ModelAndView modelAndView = new ModelAndView("/subscribers/add-subscriber");
+        try {
+            service.save(subscriber);
+            modelAndView.setViewName("redirect:/subscribers/subscriber-list");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         modelAndView.addObject("subscriberForm", new Subscriber());
         return modelAndView;
     }
