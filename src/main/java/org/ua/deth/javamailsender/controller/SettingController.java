@@ -24,8 +24,8 @@ public class SettingController {
     @RequestMapping(value = "/setting/settings", method = RequestMethod.GET)
     public ModelAndView getSetting() {
         ModelAndView modelAndView = new ModelAndView();
-        if (service.getRepository().findOne(1L) != null) {
-            modelAndView.addObject("mailSetting", service.getRepository().findOne(1L));
+        if (service.getMailSetting() != null) {
+            modelAndView.addObject("mailSetting", service.getMailSetting());
         } else {
             modelAndView.addObject("mailSetting", new MailSetting());
         }

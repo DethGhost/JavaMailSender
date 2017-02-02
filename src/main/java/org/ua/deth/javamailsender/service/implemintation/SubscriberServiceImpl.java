@@ -37,4 +37,9 @@ public class SubscriberServiceImpl implements SubscriberService {
     public Subscriber getSubscriberById(long id) {
         return repository.findOne(id);
     }
+
+    @Override
+    public List<Subscriber> getByGroup(long id) {
+        return repository.getAllInGroup(id);
+    }
 }

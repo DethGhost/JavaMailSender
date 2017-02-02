@@ -17,6 +17,11 @@ public class MailSettingServiceImpl implements MailSettingService {
     private MailSettingRepository repository;
 
     @Override
+    public MailSetting getMailSetting() {
+        return null;
+    }
+
+    @Override
     public boolean saveSetting(MailSetting setting) {
         try {
             repository.save(setting);
@@ -26,9 +31,6 @@ public class MailSettingServiceImpl implements MailSettingService {
         }
     }
 
-    public MailSettingRepository getRepository() {
-        return repository;
-    }
 
 
 }

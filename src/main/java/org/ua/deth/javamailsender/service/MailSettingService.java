@@ -1,7 +1,6 @@
 package org.ua.deth.javamailsender.service;
 
 import org.ua.deth.javamailsender.entity.MailSetting;
-import org.ua.deth.javamailsender.repository.MailSettingRepository;
 
 /**
  * Created by Eugene Khudoliiv.
@@ -9,7 +8,9 @@ import org.ua.deth.javamailsender.repository.MailSettingRepository;
  */
 public interface MailSettingService {
 
-    MailSettingRepository getRepository();
+    MailSetting getMailSetting();
 
     boolean saveSetting(MailSetting setting);
+
+    
 }

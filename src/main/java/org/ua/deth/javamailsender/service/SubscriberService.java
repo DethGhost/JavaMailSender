@@ -18,4 +18,6 @@ public interface SubscriberService {
 
     Subscriber getSubscriberById(long id);
 
+    List<Subscriber> getByGroup(long id);
+
 }
