@@ -20,12 +20,8 @@ import java.util.List;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService service;
-
     @Autowired
-    public SecurityConfig(UserService service) {
-        this.service = service;
-    }
+    private UserService service;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

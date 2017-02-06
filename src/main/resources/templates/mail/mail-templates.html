@@ -17,7 +17,7 @@
     <form id="form" th:action="@{/mail/edit-mail-template}" method="get">
         <tr th:each="mail: ${mailTemplateList}">
             <td><input id="whatToDo" name="whatToDo" hidden="hidden" type="checkbox"/>
-                <label th:text="${mail.subject}"></label></td>
+                <label th:text="${mail.subject}"/></td>
             <td>
                 <button name="id" th:value="${mail.mailId}">
                     Edit

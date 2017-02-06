@@ -13,12 +13,8 @@ import org.ua.deth.javamailsender.service.MailSettingService;
 @Service
 public class MailSettingServiceImpl implements MailSettingService {
 
-    private final MailSettingRepository repository;
-
     @Autowired
-    public MailSettingServiceImpl(MailSettingRepository repository) {
-        this.repository = repository;
-    }
+    private MailSettingRepository repository;
 
     @Override
     public MailSetting getMailSetting() {

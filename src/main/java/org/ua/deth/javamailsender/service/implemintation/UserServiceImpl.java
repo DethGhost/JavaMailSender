@@ -16,15 +16,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repository;
-
-    private final BCryptPasswordEncoder encoder;
+    @Autowired
+    private UserRepository repository;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, BCryptPasswordEncoder encoder) {
-        this.repository = repository;
-        this.encoder = encoder;
-    }
+    private BCryptPasswordEncoder encoder;
 
     public void save(User user){
         user.setPassword(encoder.encode(user.getPassword()));
@@ -37,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isExist(String login) {
-        return repository.findByLogin(login) != null;
+        return repository.findByLogin(login) != null?true:false;
     }
 
     @Override

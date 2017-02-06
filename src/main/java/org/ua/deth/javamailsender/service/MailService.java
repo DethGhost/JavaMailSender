@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface MailService {
 
-    void saveMailTemplate(Mail mail);
+    Mail saveMailTemplate(Mail mail);
 
     void deleteMailTemplate(long id);
 

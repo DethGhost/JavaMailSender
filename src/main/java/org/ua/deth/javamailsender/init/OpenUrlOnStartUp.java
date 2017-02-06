@@ -6,11 +6,11 @@ import java.io.IOException;
  * Created by Eugene Khudoliiv.
  * (eugenkhidoliiv@gmail.com)
  */
-class OpenUrlOnStartUp {
+public class OpenUrlOnStartUp {
 
     private static final String url = "http://localhost:8080";
-    static final Runtime rt = Runtime.getRuntime();
-    private static final String os = System.getProperty("os.name").toLowerCase();
+    static Runtime rt = Runtime.getRuntime();
+    private static String os = System.getProperty("os.name").toLowerCase();
 
     static void openUrl() throws IOException {
         if (os.indexOf("win") >= 0) { //Start on Windows

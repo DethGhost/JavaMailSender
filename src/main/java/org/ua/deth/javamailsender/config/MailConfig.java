@@ -9,11 +9,11 @@ import java.util.Properties;
  * Created by Eugene Khudoliiv.
  * (eugenkhidoliiv@gmail.com)
  * <p>
- * I could not make it through the start of Spring Booth, and that use of such a terrible approach
+ * I can`t do spring-boot autowired this config, use that monster...
  */
 public class MailConfig {
 
-    private static final MailConfig ourInstance = new MailConfig();
+    private static MailConfig ourInstance = new MailConfig();
     private String host;
     private int port;
     private String username;
@@ -29,7 +29,6 @@ public class MailConfig {
         return ourInstance;
     }
 
-    // Setup setting for our JavaMailSender
     public void setSetting(MailSetting setting) {
         this.host = setting.getHost();
         this.port = setting.getPort();
@@ -39,8 +38,8 @@ public class MailConfig {
         this.starttls = Boolean.toString(setting.getStarttls());
     }
 
-    // Place setting to JavaMailSender
     public JavaMailSenderImpl getJavaMailSender() {
+
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setUsername(username);
         javaMailSender.setHost(host);
@@ -50,7 +49,6 @@ public class MailConfig {
         return javaMailSender;
     }
 
-    // Setup properties to JavaMailSender
     private Properties getMailProperties() {
         Properties properties = new Properties();
         properties.setProperty("mail.smtp.auth", auth);

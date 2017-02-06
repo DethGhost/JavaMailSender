@@ -16,7 +16,6 @@ import java.sql.Types;
  * found this class on the Internet, if you wrote it, let me know
  *
  */
-@SuppressWarnings("ALL")
 public class HibernateSqLiteDialect extends Dialect {
 
 
