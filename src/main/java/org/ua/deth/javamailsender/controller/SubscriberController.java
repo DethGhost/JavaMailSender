@@ -74,7 +74,16 @@ public class SubscriberController {
     @RequestMapping(value = "/subscribers/edit-subscriber", method = RequestMethod.GET)
     public ModelAndView editSubscriber(@RequestParam("id") long id) {
         ModelAndView modelAndView = new ModelAndView("/subscribers/edit-subscriber");
+        modelAndView.addObject("groupList", groupService.getAllGroup());
         modelAndView.addObject("subscriberForm", service.getSubscriberById(id));
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/subscribers/edit-subscriber", method = RequestMethod.POST)
+    public ModelAndView saveEditedSubscriber(@ModelAttribute("subscriberForm") Subscriber subscriber,@RequestParam("id") long id) {
+        subscriber.setSubscriberId(id);
+        System.out.println(subscriber);
+        service.save(subscriber);
+        return new ModelAndView("redirect:/subscribers");
     }
 }

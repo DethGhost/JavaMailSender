@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
-
+<form th:action="@{/subscribers/edit-subscriber}" action="#" th:object="${subscriberForm}" method="post">
+    <label for="fullName">Edit name:</label>
+    <br/><input id="fullName" name="fullName" th:value="*{fullName}" type="text" required="required"/>
+    <label for="email">Edit email:</label>
+    <br/><input id="email" name="email" th:value="*{email}" type="text" required="required"/>
+    <label>Edit Group:</label>
+    <br/><select id="group" th:field="*{group}">
+    <option th:each="group1 : ${groupList}"
+            th:text="${group1.groupName}"
+            th:value="${group1.subscriberGroupId}"></option>
+</select>
+    <input name="id" hidden="hidden" readonly="readonly" th:value="*{subscriberId}"/>
+    <br/>
+    <button>Save</button>
+</form>
 </body>
 </html>

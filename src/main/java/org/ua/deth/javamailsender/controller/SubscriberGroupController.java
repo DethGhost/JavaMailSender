@@ -51,13 +51,11 @@ public class SubscriberGroupController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/setting/delete-group", method = RequestMethod.POST)
-    public ModelAndView editGroup(@RequestParam("id") long id, @RequestParam("whatToDo") boolean delete) {
+    @RequestMapping(value = "/setting/delete-group", method = RequestMethod.GET)
+    public ModelAndView deleteGroup(@RequestParam("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/setting/subscriber-group-list");
-        if (delete) {
-            groupService.deleteById(id);
-        }
+        groupService.deleteById(id);
         return modelAndView;
     }
 

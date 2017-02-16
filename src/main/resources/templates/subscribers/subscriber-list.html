@@ -2,29 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <script src="/js/jms.js" type="text/javascript"></script>
-    <title>Title</title>
+    <script>
+        function confirmation(){
+            confirm("Do you really want to delete")?alert():document.getElementById('delete').href = "/subscribers/subscriber-list";
+        }
+    </script>
+    <title>List of subscribers</title>
 </head>
-<body onload="go()">
-<h1>All group are here</h1>
+<body>
+<h1>All subscribers is here</h1>
 <table>
-    <form id="form" th:action="@{/subscribers/edit-subscriber}" method="get">
-        <tr th:each="subscriber: ${subscribers}">
-            <td><input id="whatToDo" name="whatToDo" hidden="hidden" type="checkbox"/>
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <label th:text="${subscriber.fullName}"/></td>
-            <td>
-                <button name="id" th:value="${subscriber.subscriberId}">
-                    Edit
-                </button>
-            </td>
-            <td>
-                <button onclick="checkThat()" id="deleteGroup" name="id" th:value="${subscriber.subscriberId}">
-                    Delete
-                </button>
-            </td>
-        </tr>
-    </form>
+    <thead>
+    <tr>
+        <th>
+            Full name
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Subscribe group
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="subscriber : ${subscribers}">
+        <td><span th:text="${subscriber.fullName}"></span></td>
+        <td><span th:text="${subscriber.email}"></span></td>
+        <td><span th:text="${subscriber.group.groupName}"></span></td>
+        <td><a th:href="@{/subscribers/edit-subscriber(id=${subscriber.subscriberId})}">
+            <button class="edit">Edit</button>
+        </a>
+            <br />
+            <a id="delete" th:href="@{/subscribers/delete-subscriber(id=${subscriber.subscriberId})}">
+                <button onclick="confirmation()" class="delete">Delete</button>
+            </a></td>
+    </tr>
+    </tbody>
 </table>
 <a href="/subscribers/add-subscriber">
     <button type="button">Add Subscriber</button>

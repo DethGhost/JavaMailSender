@@ -11,6 +11,7 @@ public class JavaMailSenderApplicationTests {
 
     @Test
     public void contextLoads() {
+
     }
 
     @Test
