@@ -14,7 +14,7 @@ public class JavaMailSenderApplication {
     public static void main(String[] args) throws IOException {
         SpringApplication.run(JavaMailSenderApplication.class, args);
         OpenUrlOnStartUp.openUrl();
-        new DirectoryConfig().getHome();
+        // todo new DirectoryConfig();
     }
 
 }

@@ -9,7 +9,7 @@
     <table>
         <tr>
             <td>
-                <h1>Select group to sending email:</h1>
+                <h4>Select group to sending email:</h4>
                 <select name="subscriberList">
                     <option th:each="var :${subscriberGroup}"
                             th:value="${var.subscriberGroupId}"
@@ -18,13 +18,20 @@
                 </select>
             </td>
             <td>
-                <h1>Select mail Template:</h1>
+                <h4>Select mail Template:</h4>
                 <select name="template">
                     <option th:each="var :${mailTemplate}"
                             th:value="${var.mailId}"
                             th:text="${var.subject}"
                     ></option>
                 </select>
+            </td>
+            <td>
+                <h4>Select sending way:</h4>
+                <label for="oneToOne">Send one to one:</label>
+                <input id="oneToOne" type="radio" name="oneToOne" value="true"/>
+                <label for="oneToAll">Send one to all:</label>
+                <input id="oneToAll" type="radio" name="oneToOne" value="false"/>
             </td>
         </tr>
     </table>

@@ -3,6 +3,8 @@ package org.ua.deth.javamailsender.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +19,11 @@ import org.ua.deth.javamailsender.service.MailSettingService;
 import org.ua.deth.javamailsender.service.SubscriberGroupService;
 import org.ua.deth.javamailsender.service.SubscriberService;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,27 +61,61 @@ public class SendMailController {
     }
 
     @RequestMapping(value = "/mail/send", method = RequestMethod.POST)
-    public ModelAndView send(@RequestParam("template") String mailTemplateId, @RequestParam("subscriberList") String subscriberListId) {
+    public ModelAndView send(@RequestParam("template") String mailTemplateId, @RequestParam("subscriberList") String subscriberListId, @RequestParam("oneToOne") boolean oneToOne) {
+        ModelAndView modelAndView = new ModelAndView("/mail/result");
         MailSetting setting = mailSettingService.getMailSetting();
         mailConfig.setSetting(setting);
-        JavaMailSender javaMailSender = mailConfig.getJavaMailSender();
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        Mail mail = mailService.getOneMailTemplate(Long.parseLong(mailTemplateId));
-        mailMessage.setFrom(setting.getFromName() + "<" + setting.getFrom() + ">");
-        mailMessage.setText(mail.getText());
-        mailMessage.setSubject(mail.getSubject());
         List<Subscriber> subscribers = subscriberService.getByGroup(Long.parseLong(subscriberListId));
+        JavaMailSender javaMailSender = mailConfig.getJavaMailSender();
+        Mail mail = mailService.getOneMailTemplate(Long.parseLong(mailTemplateId));
+
+        MimeMessage mailMessage = javaMailSender.createMimeMessage();
+        if (oneToOne) {
+            sendOneToOne(subscribers, mailMessage, mail, setting, javaMailSender);
+        } else {
+            sendOneToAll(subscribers, mailMessage, mail, setting, javaMailSender);
+        }
+        return modelAndView;
+    }
+
+    private List sendOneToAll(List<Subscriber> subscribers, MimeMessage mailMessage, Mail mail, MailSetting setting, JavaMailSender javaMailSender) {
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(mailMessage, true);
+            mailMessage.setContent(mail.getText(), "text/html");
+            helper.setSubject(mail.getSubject());
+            helper.setFrom(new InternetAddress(setting.getFrom(), setting.getFromName(), "UTF-8").toString());
+            helper.setBcc((String[]) subscribers.toArray());
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        javaMailSender.send(mailMessage);
+        return subscribers;
+    }
+
+    // This method sends personal email to each subscriber
+    private List sendOneToOne(List<Subscriber> subscribers, MimeMessage mailMessage, Mail mail, MailSetting setting, JavaMailSender javaMailSender) {
+        MimeMessageHelper helper = null;
+        try {
+            helper = new MimeMessageHelper(mailMessage, true);
+            mailMessage.setContent(mail.getText(), "text/html");
+            helper.setSubject(mail.getSubject());
+            helper.setFrom(new InternetAddress(setting.getFrom(), setting.getFromName(), "UTF-8").toString());
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         for (Subscriber subscriber : subscribers) {
             try {
-                mailMessage.setTo(new InternetAddress(subscriber.getEmail(), subscriber.getFullName(), "UTF-8").toString());
-            } catch (UnsupportedEncodingException e) {
+                assert helper != null;
+                helper.setTo(new InternetAddress(subscriber.getEmail(), subscriber.getFullName(), "UTF-8").toString());
+            } catch (UnsupportedEncodingException | MessagingException e) {
                 e.printStackTrace();
             }
+
             javaMailSender.send(mailMessage);
+            System.out.println("Email was send to: " + subscriber.getFullName() + " " + subscriber.getEmail());
         }
-
-
-        return new ModelAndView("/mail/result");
+        return subscribers;
     }
 
 }
