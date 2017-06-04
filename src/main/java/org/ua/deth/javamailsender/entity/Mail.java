@@ -25,6 +25,9 @@ public class Mail {
     @Column(columnDefinition="TEXT")
     private String text;
 
+    
+    private byte[] file;
+
     public Mail() {
     }
 
@@ -50,5 +53,13 @@ public class Mail {
 
     public void setMailId(long mailId) {
         this.mailId = mailId;
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 }

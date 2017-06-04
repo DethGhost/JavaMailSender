@@ -12,6 +12,8 @@ import java.io.IOException;
 public class JavaMailSenderApplication {
 
     public static void main(String[] args) throws IOException {
+        DirectoryConfig.getInstance();
+
         SpringApplication.run(JavaMailSenderApplication.class, args);
         OpenUrlOnStartUp.openUrl();
         // todo new DirectoryConfig();

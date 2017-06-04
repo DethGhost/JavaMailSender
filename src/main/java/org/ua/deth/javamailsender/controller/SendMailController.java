@@ -68,7 +68,6 @@ public class SendMailController {
         List<Subscriber> subscribers = subscriberService.getByGroup(Long.parseLong(subscriberListId));
         JavaMailSender javaMailSender = mailConfig.getJavaMailSender();
         Mail mail = mailService.getOneMailTemplate(Long.parseLong(mailTemplateId));
-
         MimeMessage mailMessage = javaMailSender.createMimeMessage();
         if (oneToOne) {
             sendOneToOne(subscribers, mailMessage, mail, setting, javaMailSender);
@@ -78,6 +77,7 @@ public class SendMailController {
         return modelAndView;
     }
 
+    // This method send one email to all subscribers and hide their email addresses from each other
     private List sendOneToAll(List<Subscriber> subscribers, MimeMessage mailMessage, Mail mail, MailSetting setting, JavaMailSender javaMailSender) {
 
         try {
@@ -85,7 +85,11 @@ public class SendMailController {
             mailMessage.setContent(mail.getText(), "text/html");
             helper.setSubject(mail.getSubject());
             helper.setFrom(new InternetAddress(setting.getFrom(), setting.getFromName(), "UTF-8").toString());
-            helper.setBcc((String[]) subscribers.toArray());
+            InternetAddress[] addresses = new InternetAddress[subscribers.size()];
+            for (int i = 0; i < addresses.length; i++) {
+                addresses[i] = new InternetAddress( subscribers.get(i).getEmail(), subscribers.get(i).getFullName(), "UTF-8");
+            }
+            helper.setBcc(addresses);
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
