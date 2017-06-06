@@ -46,20 +46,27 @@ public class DirectoryConfig {
             mkdir = new File(dirToCreate).mkdir();
             dbUrl = "jdbc:sqlite:" + dirToCreate + "/" + "person_db.sqlite";
         }
-        System.out.println(mkdir ? "Created dir: " + System.getProperty("user.home") + dirToCreate : "Dir exist or you don't have permissions");
+        System.out.println(mkdir ? "Configuration dir was created: " + System.getProperty("user.home") + dirToCreate : ".mailApp dir exist or you don't have permissions.\nContinue");
         setProperty(dbUrl);
     }
 
     private void setProperty(String dbUrl) {
 
         try {
-            PropertiesConfiguration configuration = new PropertiesConfiguration("application.properties");
+            PropertiesConfiguration configuration;
+            if(new File(dirToCreate + "application.properties").exists()) {
+                configuration = new PropertiesConfiguration(dirToCreate + "application.properties");
+            }else{
+                configuration = new PropertiesConfiguration("application.properties");
+            }
             configuration.setProperty("spring.datasource.url", dbUrl);
-            configuration.save();
+            configuration.save(dirToCreate + "application.properties");
         } catch (ConfigurationException e) {
             e.printStackTrace();
         }
     }
 
-
+    public String getDirToCreate() {
+        return dirToCreate;
+    }
 }

@@ -1,6 +1,7 @@
 package org.ua.deth.javamailsender.entity;
 
 import javax.persistence.*;
+import java.io.File;
 
 /**
  * Created by Eugene Khudoliiv.
@@ -25,10 +26,11 @@ public class Mail {
     @Column(columnDefinition="TEXT")
     private String text;
 
-    
-    private byte[] file;
 
-    public Mail() {
+    @Column
+    private String file;
+
+  public Mail() {
     }
 
     public String getSubject() {
@@ -55,11 +57,11 @@ public class Mail {
         this.mailId = mailId;
     }
 
-    public byte[] getFile() {
+    public String getFile() {
         return file;
     }
 
-    public void setFile(byte[] file) {
+    public void setFile(String file) {
         this.file = file;
     }
 }

@@ -6,11 +6,11 @@
 </head>
 <body>
 <h1>Mail template</h1>
-<form method="post" action="#" enctype="multipart/form-data" th:action="@{/mail/add-template}" th:object="${mailTemplate}">
+<form method="post" action="#" enctype="multipart/form-data" th:action="@{/mail/add-template}" >
     <label>Subject:</label>
-    <br/><input type="text" maxlength="200" th:field="*{subject}"/>
+    <br/><input type="text" maxlength="200" name="subject"/>
     <label>Message:</label>
-    <br/><textarea th:field="*{text}" />
+    <br/><textarea name="text" />
     <br/>
     <label>Attachment:</label>
     <input type="file" name="file"/>

@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.ua.deth.javamailsender.config.DirectoryConfig;
 import org.ua.deth.javamailsender.entity.Mail;
 import org.ua.deth.javamailsender.service.MailService;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 /**
@@ -23,6 +27,7 @@ import java.util.Arrays;
 public class MailController {
 
     private final MailService service;
+    private String dir = System.getProperty("os.name").toLowerCase().contains("win") ? DirectoryConfig.getInstance().getDirToCreate() + "upload\\" : DirectoryConfig.getInstance().getDirToCreate() + "upload/";
 
     @Autowired
     public MailController(MailService service) {
@@ -44,19 +49,29 @@ public class MailController {
     }
 
     @RequestMapping(value = "/mail/add-template", method = RequestMethod.POST)
-    public ModelAndView addTemplate(@ModelAttribute("mailTemplate") Mail mail, @RequestParam MultipartFile file) {
-        System.out.println(file.getName());
+    public ModelAndView addTemplate(@RequestParam String subject, @RequestParam String text, @RequestParam MultipartFile file) {
+        Mail mail = new Mail();
+        mail.setSubject(subject);
+        mail.setText(text);
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(dir + file.getOriginalFilename());
+                mail.setFile(path.toString());
+
+                Files.write(path, bytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         service.saveMailTemplate(mail);
         return new ModelAndView("redirect:/mail/mail-templates");
     }
 
     @RequestMapping(value = "/mail/upload", method = RequestMethod.POST)
     public ModelAndView uploadAttachment(@ModelAttribute("mailTemplate") Mail mail, @RequestParam MultipartFile file) {
-        try {
-            mail.setFile(file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mail.setFile(null);
         System.out.println(file.getOriginalFilename());
         ModelAndView modelAndView = new ModelAndView("redirect:/mail/add-mail-template");
         modelAndView.addObject("mailTemplate", mail);
